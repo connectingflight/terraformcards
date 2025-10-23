@@ -1,0 +1,267 @@
+Terraform Commands:
+Basic Terraform Commands
+terraform init – Initializes a new or existing Terraform configuration.
+terraform plan – Generates and shows an execution plan.
+terraform apply – Builds or changes infrastructure.
+terraform destroy – Destroys Terraform-managed infrastructure.
+terraform fmt – Formats Terraform configuration files to a canonical style.
+terraform validate – Validates the configuration files.
+terraform output – Extracts and displays output values from the Terraform state.
+terraform show – Provides human-readable output from a state or plan file.
+terraform version – Displays the current Terraform version.
+terraform providers – Lists Terraform providers required by the configuration.
+
+Terraform State Management
+terraform state list – Lists all resources in the Terraform state.
+terraform state show <resource> – Shows the attributes of a resource in the Terraform state.
+terraform state pull – Downloads and outputs the Terraform state in JSON format.
+terraform state push – Uploads a local state file to a remote backend.
+terraform state rm <resource> – Removes a resource from the Terraform state.
+terraform state mv <source> <destination> – Moves resources within the state.
+terraform state replace-provider <old-provider> <new-provider> – Replaces a provider in the state.
+terraform refresh – Updates local state with real-world infrastructure.
+terraform state pull > terraform.tfstate – Downloads and saves the state locally.
+
+Terraform Workspaces
+terraform workspace list – Lists all Terraform workspaces.
+terraform workspace new <name> – Creates a new Terraform workspace.
+terraform workspace select <name> – Switches to a different workspace.
+terraform workspace delete <name> – Deletes a Terraform workspace.
+terraform workspace show – Displays the current workspace.
+
+Terraform Import
+terraform import <resource_type>.<resource_name> <id> – Imports existing infrastructure into Terraform.
+terraform import module.<module_name>.<resource_type>.<resource_name> <id> – Imports infrastructure into a specific module.
+Terraform Graph and Visualization
+terraform graph – Outputs a visual representation of the dependency graph.
+terraform graph | dot -Tpng > graph.png – Converts the graph into a PNG file using Graphviz.
+Terraform Plan and Apply Options
+terraform apply -auto-approve – Applies changes without confirmation.
+terraform apply -var="key=value" – Applies changes with overridden variables.
+terraform apply -target=<resource> – Applies only the targeted resource.
+terraform apply <plan_file> – Applies a saved plan file.
+terraform plan -out=<plan_file> – Saves the execution plan to a file.
+terraform plan -var="key=value" – Creates a plan with overridden variables.
+terraform plan -target=<resource> – Generates a plan for the targeted resource.
+terraform plan -destroy – Shows a plan to destroy all resources.
+terraform plan -refresh=false – Skips refreshing the state when generating a plan.
+terraform apply -refresh-only – Updates the state without changing any resources.
+
+Variable Management
+terraform apply -var-file=<file.tfvars> – Uses variables from a file.
+terraform plan -var-file=<file.tfvars> – Creates a plan using variables from a file.
+terraform apply -var="key=value" – Applies with a single variable override.
+terraform plan -var="key=value" – Plans with a single variable override.
+terraform apply -lock=false – Applies changes without locking the state.
+terraform plan -input=false – Runs the plan without interactive input for variables.
+
+Resource Taint and Untaint
+terraform taint <resource> – Marks a resource for recreation in the next apply.
+terraform untaint <resource> – Removes the tainted mark from a resource.
+
+Remote State Management
+terraform remote config – Configures remote state storage.
+terraform backend -config=backend.tf – Specifies the backend configuration.
+terraform state push – Uploads a local state file to the configured backend.
+terraform state pull – Downloads the current state from the remote backend.
+
+Provider Management
+terraform providers schema – Displays the schema of providers used in the configuration.
+terraform providers lock – Generates a lock file for providers.
+terraform providers mirror <directory> – Copies providers to a specified directory.
+terraform providers install – Installs the required providers locally.
+terraform init -upgrade – Upgrades provider plugins to the latest versions.
+
+Locking and Unlocking
+terraform force-unlock <lock-id> – Manually unlocks the state for recovery.
+terraform apply -lock-timeout=5m – Specifies a timeout for acquiring the state lock.
+
+Terraform State Manipulation
+terraform state push <file> – Pushes the given state file to the remote backend.
+terraform state pull > file.tfstate – Pulls the current state to a local file.
+terraform state replace-provider – Replaces the provider for resources in the state.
+terraform state mv <old> <new> – Moves items within the state.
+terraform state rm <resource> – Removes a specific resource from the state.
+
+Debugging and Logging
+TF_LOG=DEBUG terraform apply – Enables debug-level logging.
+TF_LOG=INFO terraform plan – Enables info-level logging.
+TF_LOG_PATH=<file> terraform apply – Redirects logging output to a file.
+terraform validate -json – Validates the configuration and outputs in JSON format.
+terraform console – Opens an interactive console for evaluating expressions.
+terraform providers schema -json – Outputs the provider schema in JSON format.
+
+Experimental Commands
+terraform apply -replace=<resource> – Forces Terraform to replace a specific resource.
+terraform plan -refresh=false – Skips refreshing the state before planning.
+terraform destroy -target=<resource> – Destroys a specific resource.
+
+Working with Modules
+terraform get – Downloads and installs modules for the configuration.
+terraform get -update – Updates modules to the latest versions.
+terraform init -get=true – Re-fetches the required modules.
+terraform init -get-plugins – Downloads necessary provider plugins.
+
+Backups and Rollbacks
+terraform state snapshot – Creates a backup of the current state.
+terraform state restore <backup-file> – Restores the state from a backup file.
+terraform apply -backup=<backup-file> – Specifies a backup file before applying changes.
+
+Automation and Scripting
+terraform apply -auto-approve – Runs apply without confirmation.
+terraform plan -detailed-exitcode – Returns a detailed exit code for use in CI/CD.
+terraform apply -parallelism=<N> – Limits the number of parallel resource operations.
+
+Workspace Commands
+terraform workspace list – Lists available workspaces.
+terraform workspace new <name> – Creates a new workspace.
+terraform workspace select <name> – Switches to a specific workspace.
+terraform workspace delete <name> – Deletes a workspace.
+terraform workspace show – Displays the current workspace.
+
+Remote Backend and Collaboration
+terraform login – Authenticates to Terraform Cloud/Enterprise.
+terraform logout – Logs out of Terraform Cloud/Enterprise.
+terraform init -backend-config=<config> – Initializes the backend with a specific configuration.
+
+Resource Manipulation
+terraform apply -replace=<resource> – Forces a specific resource to be replaced.
+terraform taint <resource> – Marks a resource as tainted for recreation.
+terraform untaint <resource> – Removes the tainted status from a resource.
+
+Miscellaneous
+terraform init -force-copy – Forces copying of state data on reinitialization.
+terraform init -reconfigure – Reconfigures backend settings on initialization.
+terraform plan -compact-warnings – Hides warnings during the plan.
+terraform state show <resource> – Shows the state of a specific resource.
+terraform refresh – Updates the state to match real-world infrastructure.
+terraform login – Authenticates to Terraform Cloud/Enterprise.
+terraform fmt -recursive – Recursively formats all .tf files in a directory.
+terraform force-unlock <lock-id> – Manually unlocks the state for recovery.
+
+
+General Concepts
+Terraform is declarative — You define what you want, and Terraform figures out how to achieve it.
+Terraform State — It keeps track of infrastructure, making it crucial for updates and modifications.
+Idempotency — Running terraform apply multiple times with the same configuration should not change anything after the first run.
+Infrastructure as Code (IaC) — Terraform allows you to manage infrastructure using configuration files.
+Providers — Providers enable Terraform to work with various cloud platforms and services (e.g., AWS, GCP, Azure).
+Modules — Reusable configurations that allow you to group and reuse resources in different environments.
+Terraform Backend — Determines how and where Terraform stores its state (local or remote).
+Variables — Used to parameterize configurations to make them flexible.
+Outputs — Used to expose values to be referenced by other configurations or scripts.
+Workspaces — Used to manage multiple environments (e.g., dev, prod) in a single configuration.
+
+Best Practices
+Version Control — Always use version control for your Terraform code (e.g., Git).
+Lock Provider Versions — Always specify provider versions in your configurations.
+Avoid latest tag – Avoid using the latest version of providers or modules to ensure consistency.
+Separate Environments — Use separate workspaces or directories for dev, staging, and production environments.
+Use Modules — Organize reusable parts of your infrastructure into modules.
+Use Terraform Plan — Always run terraform plan before apply to review changes.
+State File Security — Protect Terraform state files, as they may contain sensitive information.
+State File Locking — Use remote state with locking to prevent concurrent modifications.
+Environment Variables — Store secrets like API keys in environment variables rather than hardcoding them.
+State Backups — Always back up your state files, especially when using local backends.
+
+Remote State Management
+Use Remote Backends — For collaborative projects, use remote state (e.g., S3, Terraform Cloud).
+Terraform Cloud — Offers free remote backend for state management and collaboration.
+State File Encryption — Encrypt remote state files (e.g., enable S3 bucket encryption).
+Use Versioned State — Enable versioning for state files in remote storage (e.g., S3 versioning).
+State Drift — Ensure the real-world infrastructure matches the state file to avoid drift.
+Locking — Ensure that Terraform state locking is enabled to prevent race conditions.
+State Management Commands — Use terraform state commands (list, rm, mv) for advanced state manipulation.
+
+Working with Providers
+Provider Configuration — Always specify provider configurations in your Terraform files.
+Provider Plugins — Providers are downloaded as plugins and stored in .terraform directory.
+Provider Authentication — Ensure correct authentication (e.g., using environment variables for cloud providers).
+Multiple Providers — Terraform allows using multiple providers in a single configuration.
+Custom Providers — You can create custom providers if needed.
+Provider Alias — Use aliases for configuring multiple instances of the same provider.
+Terraform init — Initializes the provider plugins and backend configuration.
+Provider Updates — Use terraform init -upgrade to upgrade to the latest provider versions.
+Provider Configuration Per Environment — Use environment-specific provider configurations.
+Replace Provider in State — Use terraform state replace-provider to change providers.
+
+Variables and Outputs
+Use terraform.tfvars – Store variable values in .tfvars files for easy reuse.
+Environment Variables — You can pass variables using environment variables (TF_VAR_name=value).
+Sensitive Variables — Mark sensitive variables using sensitive = true to hide them in logs.
+Outputs for Cross-Module Communication — Use outputs to pass values between modules.
+Use Variable Defaults — Always provide default values for variables if possible.
+Avoid Hardcoding — Avoid hardcoding values in the configuration; use variables instead.
+Pass Variables via CLI — Use -var flag to override variables on the CLI.
+Output Sensitive Data — Mark outputs as sensitive if they contain sensitive information.
+Use Locals — Use local values for intermediate calculations or reusable expressions within the same module.
+Variable Type Constraints — Define variable types (e.g., string, map, list) for strict input validation.
+
+Resource and State Management
+Resource Dependencies — Terraform automatically manages dependencies between resources.
+Explicit Dependencies — Use depends_on to specify explicit dependencies between resources.
+Terraform Import — Use terraform import to bring existing infrastructure under Terraform management.
+Statefile Integrity — Do not manually edit state files unless absolutely necessary.
+State Cleanups — Regularly clean up state (e.g., remove unused resources using terraform state rm).
+Handle Cyclic Dependencies — Avoid cyclic dependencies by carefully structuring resource dependencies.
+Terraform Refresh — Run terraform refresh to sync the state file with real-world infrastructure.
+State Splitting — Split large state files across multiple environments or components.
+State Drift Detection — Regularly check for drift between the state and real-world infrastructure.
+Terraform Taint — Use terraform taint to mark resources for forced recreation.
+State Moves — Use terraform state mv to move resources within the state.
+
+Working with Modules
+DRY Principle — Use modules to avoid duplicating configurations.
+Module Registry — Use the official Terraform module registry to find pre-built modules.
+Module Versioning — Always version modules to avoid breaking changes.
+Inputs and Outputs — Pass variables and capture outputs when using modules.
+Module Composition — Compose modules together to form more complex infrastructure.
+Module Validation — Validate modules using terraform validate before reuse.
+Module Documentation — Document your modules for better reusability and maintenance.
+Test Modules — Test modules individually before integrating them into larger configurations.
+Nested Modules — You can nest modules, but ensure clear organization.
+Override Module Variables — Override module variables when reusing them in different environments.
+
+Lifecycle Management
+Lifecycle Blocks — Use lifecycle blocks to customize resource behavior (e.g., prevent destroy).
+Create Before Destroy — Use create_before_destroy in lifecycle to avoid downtime during updates.
+Ignore Changes — Use ignore_changes to prevent Terraform from managing specific resource attributes.
+Prevent Destroy — Use prevent_destroy to protect critical resources from being destroyed.
+Resource Recreate — Use terraform taint to force a resource to be recreated in the next apply.
+
+Plan and Apply Best Practices
+Always Plan First — Always run terraform plan before terraform apply.
+Auto-approve Flag — Use -auto-approve cautiously, as it skips interactive confirmation.
+Parallelism — Use -parallelism=<N> to control the number of concurrent operations.
+Apply Targeting — Use -target to apply specific resources.
+Destroy with Care — Be cautious when using terraform destroy, as it removes all managed resources.
+Output Logs — Capture and review logs during apply for troubleshooting.
+Detailed Exit Codes — Use -detailed-exitcode to detect changes in automation scripts.
+
+Terraform Cloud and Collaboration
+Remote State in Terraform Cloud — Use Terraform Cloud for collaborative remote state management.
+Terraform Cloud Workspaces — Manage multiple environments using Terraform Cloud Workspaces.
+Collaborative Workflows — Use Terraform Cloud’s collaborative workflow for shared environments.
+Terraform Cloud Authentication — Use terraform login for authenticated operations in Terraform Cloud.
+Sentinel Policies — Use Sentinel in Terraform Cloud to enforce policy checks on plans.
+
+Performance and Optimization
+Optimize Plans — Use -refresh=false for quicker planning when no state updates are needed.
+Use Data Sources — Use data sources to fetch dynamic values (e.g., from AWS).
+Resource Tagging — Tag resources for easier management and cost tracking.
+Minimize Resource Drift — Regularly apply Terraform configurations to avoid resource drift.
+Run in CI/CD — Integrate Terraform in CI/CD pipelines for automated deployments.
+
+Debugging and Troubleshooting
+Enable Debug Logs — Use TF_LOG=DEBUG for detailed Terraform logs.
+Check Provider Versions — Always check for compatibility between provider versions and Terraform.
+Use Console Command — Use terraform console to evaluate expressions interactively.
+Plan and Apply Separately — For complex configurations, run plan and apply in separate steps.
+Graph Dependencies — Use terraform graph to visualize resource dependencies.
+
+Miscellaneous
+Sensitive Data Masking — Ensure sensitive data is masked in logs and outputs.
+Recreate State — In extreme cases, use terraform init -reconfigure to recreate state and configurations.
+Use Cloud-Native Tools — Leverage cloud-native tools (e.g., AWS CloudFormation) when needed alongside Terraform.
+Community Resources — Stay updated by reading the Terraform documentation, forums, and GitHub issues.
+Continuous Learning — Regularly upgrade your knowledge with the latest Terraform features and practices.

@@ -938,10 +938,11 @@ def index():
     topics_json = json.dumps(TOPICS)
     return render_template_string(TEMPLATE, topics_json=topics_json)
 
-def open_browser():
-    webbrowser.open("http://127.0.0.1:5000", new=2)
+# def open_browser():
+#     webbrowser.open("http://127.0.0.1:5000", new=2)
 
 if __name__ == "__main__":
-    threading.Timer(1.2, open_browser).start()
-    print("Starting TerraformHeatMap web app on http://127.0.0.1:5000")
-    app.run(debug=False, port=5000)
+    #threading.Timer(1.2, open_browser).start()
+    print("Starting TerraformHeatMap web app on Port 5000")
+    # app.run(debug=False, port=5000)
+    app.run(debug=False, host="0.0.0.0", port=5000)
